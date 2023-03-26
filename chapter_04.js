@@ -1,4 +1,4 @@
-
+/*
 // FUNCTIONS
 
 let greetUser = function () {      // def of function 
@@ -136,7 +136,7 @@ let tip1_ = tip_calculator_(100)
 
 console.log(tip1_) 
  
-
+*/
 
 // BUILD A GRADE CALCULATOR
 
@@ -145,11 +145,11 @@ let grade_calc = function (student_score , total_possible_score){
 	percentage = (student_score / total_possible_score) * 100
 	if (percentage >= 90){
 	return `You got ${student_score}/${total_possible_score} and your grade is A (${percentage}%).`}
-        else if (percentage>=80 & percentage <=89){
+        else if (percentage>=80 & percentage < 90){
 	return `You got ${student_score}/${total_possible_score} and your grade is B (${percentage}%).`}
-        else if (percentage>=70 & percentage <=79){
+        else if (percentage>=70 & percentage < 80){
 	return `You got ${student_score}/${total_possible_score} and your grade is C (${percentage}%).`}
-        else if (percentage>=60 & percentage <=69){
+        else if (percentage>=60 & percentage < 70){
 	return `You got ${student_score}/${total_possible_score} and your grade is D (${percentage}%).`}
 	else {
 	return `You got ${student_score}/${total_possible_score} and your grade is F (${percentage}%).`
@@ -158,6 +158,7 @@ let grade_calc = function (student_score , total_possible_score){
 let student = grade_calc(5,20)
 console.log(student)	
 	
+
 	
 	
 	
