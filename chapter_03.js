@@ -6,7 +6,7 @@ let name = 'Osama' // creating a variable name
 console.log(name) // printing it to the screen
 
 let firstName = 'Syed'
-let lastName  = 'Osama'
+let lastName  = 'Muhammad Osama'
 let fullName = firstName + ' ' + lastName
 console.log(fullName)
 
