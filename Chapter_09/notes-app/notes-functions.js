@@ -1,27 +1,33 @@
-				
+'use strict'	
 
 				// NOTES FUNCTIONS
 
 //save notes
-const saveNotes = function(notes){
+const saveNotes = (notes) => {
 	localStorage.setItem('notes', JSON.stringify(notes))
 }
 
 
 //Read Existing notes from localStorage
-const getSavedNotes = function (){
+const getSavedNotes = () => {
 	const notesJASON = localStorage.getItem('notes')
- 	if (notesJASON !== null){
-        	 return JSON.parse(notesJASON)
-	 }else{
+
+	try{
+
+	 	return notesJASON ? JSON.parse(notesJASON) : []
+	
+	}catch (e){
+
 		return []
-	}
+
+	}	
+
+
+	
 }
 //remove a note from a list
-const removeNote = function(id){
-        const noteIndex = notes.findIndex(function(note){
-                return note.id === id
-        })
+const removeNote = (id) => {
+        const noteIndex = notes.findIndex((note) => note.id === id)
 
         if (noteIndex > -1){
                 notes.splice(noteIndex , 1)
@@ -30,7 +36,7 @@ const removeNote = function(id){
 
 
 //Generate the DOM structure for a note
-const generateNoteDOM = function(note){
+const generateNoteDOM = (note) => {
 	const noteEl = document.createElement('div')
 	const textEl = document.createElement('a')
 	const button = document.createElement('button')
@@ -56,9 +62,9 @@ const generateNoteDOM = function(note){
 }
 
 // Sort your notes by one of the three ways
-const sortNotes = function(notes , sortBy){
+const sortNotes = (notes , sortBy) => {
 	if (sortBy === 'byEdited'){
-		return notes.sort(function(a , b){
+		return notes.sort((a , b) => {
 			if (a.updatedAt > b.updatedAt){
 				return -1
 			}
@@ -71,7 +77,7 @@ const sortNotes = function(notes , sortBy){
 		})
 	}
 	else if(sortBy === 'byCreated'){
-		return notes.sort(function(a , b){
+		return notes.sort((a , b) => {
 			if (a.createdAt > b.createdAt){
 				return -1
 			}
@@ -83,7 +89,7 @@ const sortNotes = function(notes , sortBy){
 			}
 		})
 	}else if(sortBy === 'alphabetically'){
-			return notes.sort(function (a , b){
+			return notes.sort((a , b) => {
 			if (a.title.toLowerCase() < b.title.toLowerCase()){
 				return -1
 			}
@@ -100,20 +106,19 @@ const sortNotes = function(notes , sortBy){
 }
 
 //Render Notes
-const renderNotes = function (notes , filters){
+const renderNotes = (notes , filters) => {
 	notes = sortNotes(notes , filters.sortBy)
-	const filteredNotes = notes.filter(function (note){
-       		 return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
- 	 })
+	const filteredNotes = notes.filter((note) => note.title.toLowerCase().includes(filters.searchText.toLowerCase()))
+ 	 
         document.querySelector('#notes').innerHTML = ''// innerHTML helps to remove duplication
 
  
-        filteredNotes.forEach(function (note){
+        filteredNotes.forEach((note) => {
         	  const noteEl = generateNoteDOM(note)
           	  document.querySelector('#notes').appendChild(noteEl)
           })
-  }
-//Generate the last edited time
-const generateLastEdited = function(timestamp){
-	return `Last Edited ${moment(timestamp).fromNow()}`
 }
+  
+//Generate the last edited time
+const generateLastEdited = (timestamp) => `Last Edited ${moment(timestamp).fromNow()}`
+

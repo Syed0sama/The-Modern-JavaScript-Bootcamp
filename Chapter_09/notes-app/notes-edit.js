@@ -1,4 +1,4 @@
-		
+'use strict'	
 
 				//Notes Edit JAVSCRIPT
 
@@ -16,12 +16,10 @@ const dateElement = document.querySelector('#last-edited')
 let notes = getSavedNotes()
 
 // Find the note with the matching ID from the list of notes
-let note = notes.find(function(note){
-  return note.id === noteId
-})
+let note = notes.find((note) => note.id === noteId)
 
 // If the note doesn't exist, redirect to the index page
-if (note === undefined){
+if (!note){
   location.assign('/index.html')
 }
 
@@ -31,7 +29,7 @@ bodyElement.value = note.body
 dateElement.textContent = generateLastEdited(note.updatedAt)
 
 // Add an event listener for changes to the title element
-titleElement.addEventListener('input' , function(e){
+titleElement.addEventListener('input' , (e) => {
   // Update the note's title and last updated time
   note.title = e.target.value
   note.updatedAt = moment().valueOf()
@@ -42,7 +40,7 @@ titleElement.addEventListener('input' , function(e){
 })
 
 // Add an event listener for changes to the body element
-bodyElement.addEventListener('input' , function(e){
+bodyElement.addEventListener('input' , (e) => {
   // Update the note's body and last updated time
   note.body = e.target.value
   note.updatedAt = moment().valueOf()
@@ -53,7 +51,7 @@ bodyElement.addEventListener('input' , function(e){
 })
 
 // Add an event listener for clicks on the remove note button
-removeElement.addEventListener('click' , function(e){
+removeElement.addEventListener('click' , (e) => {
   // Remove the note from the list of notes
   removeNote(note.id)
 
@@ -63,19 +61,17 @@ removeElement.addEventListener('click' , function(e){
 })
 
 // Add an event listener for changes to local storage
-window.addEventListener('storage' , function(e){
+window.addEventListener('storage' , (e) => {
   // If the notes data changes in local storage...
   if (e.key === 'notes'){
     // Retrieve the updated list of notes
     notes = JSON.parse(e.newValue)
     
     // Find the note with the matching ID from the updated list
-    note = notes.find(function(note){
-      return note.id === noteId
-    })
+    note = notes.find((note) => note.id === noteId)
 
     // If the note doesn't exist, redirect to the index page
-    if (note === undefined){
+    if (!note){
       location.assign('/index.html')
     }
 
